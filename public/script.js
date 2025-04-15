@@ -1,4 +1,4 @@
-const socket = io("http://192.168.197.150:3000"); // Connect to the server
+const socket = io("https://airbridge2.onrender.com");  // Connect to the server
 
 const textArea = document.getElementById("text-input");
 const userCount = document.getElementById("user-count");

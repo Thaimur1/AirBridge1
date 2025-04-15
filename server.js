@@ -1,40 +1,45 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
+const cors = require("cors"); // To handle cross-origin requests
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+    cors: {
+        origin: "*", // Allow all origins (you can restrict this later)
+        methods: ["GET", "POST"]
+    }
+});
 
+app.use(cors()); // Enable CORS
 app.use(express.static(__dirname + "/public")); // Serve static files
 
 let connectedUsers = 0; // Track number of users
 let sharedText = ""; // Store shared text
 
 io.on("connection", (socket) => {
-    connectedUsers++; // Increase user count when a new user connects
-    io.emit("updateUsers", connectedUsers); // Notify all clients about the update
-    console.log(`A user connected! Total users: ${connectedUsers}`);
+    connectedUsers++;
+    io.emit("updateUsers", connectedUsers);
+    console.log(`✅ A user connected! Total users: ${connectedUsers}`);
 
-    // Send the latest shared text to the newly connected user
-    socket.emit("updateText", sharedText);
+    socket.emit("updateText", sharedText); // Send latest text to new user
 
-    // Listen for text updates from users
     socket.on("newText", (data) => {
-        sharedText = data; // Update the shared text
-        socket.broadcast.emit("updateText", sharedText); // Send update to all other users
+        sharedText = data;
+        socket.broadcast.emit("updateText", sharedText);
+        console.log("📝 Updated shared text:", sharedText);
     });
 
-    // Handle user disconnect
     socket.on("disconnect", () => {
-        connectedUsers--; // Decrease user count
-        io.emit("updateUsers", connectedUsers); // Notify all clients
-        console.log(`A user disconnected! Total users: ${connectedUsers}`);
+        connectedUsers--;
+        io.emit("updateUsers", connectedUsers);
+        console.log(`❌ A user disconnected. Total users: ${connectedUsers}`);
     });
 });
 
-// Use the PORT environment variable for Render deployment
-const PORT = process.env.PORT || 3000; // Default to 3000 if PORT is not set
+// ✅ Use dynamic port for Render, fallback to 3000 for local dev
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`🚀 Server is running at http://localhost:${PORT}`);
 });
