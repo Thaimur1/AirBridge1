@@ -35,7 +35,8 @@ io.on("connection", (socket) => {
 
 // Run server on your laptop's local IP (for mobile access)
 const PORT = 3000;
-const HOST = "192.168.197.150"; // Your laptop's IP
-server.listen(PORT, HOST, () => {
-    console.log(`Server is running at http://${HOST}:${PORT}`);
+
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running at http://0.0.0.0:${PORT}`);
 });
+
