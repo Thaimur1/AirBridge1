@@ -33,10 +33,8 @@ io.on("connection", (socket) => {
     });
 });
 
-// Run server on your laptop's local IP (for mobile access)
-const PORT = 3000;
-
-server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running at http://0.0.0.0:${PORT}`);
+// Use the PORT environment variable for Render deployment
+const PORT = process.env.PORT || 3000; // Default to 3000 if PORT is not set
+server.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
-
