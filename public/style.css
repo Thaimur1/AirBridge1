@@ -1,0 +1,129 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Animated Background */
+body {
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    color: black;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Gradient Animation */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Header - Centered at Top */
+h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+#user-count {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Container Styling */
+.container {
+    width: 85%;
+    max-width: 550px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Floating Glowing Particles */
+.container::before, .container::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    filter: blur(10px);
+    animation: floatParticles 5s infinite alternate ease-in-out;
+}
+
+.container::before {
+    top: -10px;
+    left: 10px;
+}
+
+.container::after {
+    bottom: -10px;
+    right: 10px;
+}
+
+@keyframes floatParticles {
+    0% { transform: translateY(0px); opacity: 0.8; }
+    100% { transform: translateY(15px); opacity: 0.5; }
+}
+
+/* Input Box */
+textarea {
+    width: 95%;
+    height: 180px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    resize: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: #000000;
+    transition: all 0.3s ease;
+}
+
+/* Input Animation */
+textarea:focus {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.02);
+}
+
+/* Button */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background: #ff6b81;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #ff4757;
+    transform: scale(1.1);
+}
